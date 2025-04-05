@@ -15,6 +15,15 @@ if pdf_file and kb_price:
         sim_table = generate_simulation_data(kb_price)
         pdf_path = create_pdf_report(info, sim_table)
 
+    # ✅ 추출된 고객 정보 출력
+    st.subheader("📌 고객 정보")
+    for k, v in info.items():
+        st.write(f"**{k}**: {v}")
+
+    # ✅ 상품별 대출 시뮬레이션 표 출력
+    st.subheader("📊 상품별 대출 시뮬레이션")
+    st.dataframe(sim_table, use_container_width=True)
+
+    # ✅ PDF 다운로드
     with open(pdf_path, "rb") as f:
-        st.success("✅ 리포트 생성 완료!")
         st.download_button("📥 PDF 리포트 다운로드", f, file_name="대출_리포트.pdf")
